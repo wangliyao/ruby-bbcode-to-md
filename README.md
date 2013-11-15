@@ -26,7 +26,7 @@ Then run
 bundle install
 ```
 
-And the gem is available in you application
+And the gem is available in your application
 
 _Note: Do not forget to restart your server!_
 

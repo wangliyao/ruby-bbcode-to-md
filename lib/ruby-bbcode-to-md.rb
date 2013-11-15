@@ -1,12 +1,12 @@
 require 'active_support/core_ext/array/conversions'
 
 require 'tags/tags'
-require 'ruby-bbcode/debugging'
-require 'ruby-bbcode/tag_info'
-require 'ruby-bbcode/tag_sifter'
-require 'ruby-bbcode/tag_node'
-require 'ruby-bbcode/tag_collection'
-require 'ruby-bbcode/bbtree'
+require 'ruby-bbcode-to-md/debugging'
+require 'ruby-bbcode-to-md/tag_info'
+require 'ruby-bbcode-to-md/tag_sifter'
+require 'ruby-bbcode-to-md/tag_node'
+require 'ruby-bbcode-to-md/tag_collection'
+require 'ruby-bbcode-to-md/bbtree'
 
 
 module RubyBBCode
