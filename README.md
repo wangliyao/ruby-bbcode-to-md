@@ -30,6 +30,19 @@ And the gem is available in you application
 
 _Note: Do not forget to restart your server!_
 
+## Development
+### Known issues
+  
+  - The parser doesn't handle nested quotes correctly.
+
+### Testing
+Run
+```
+bundle install
+bundle exec rake test
+```
+in the source directory to run the unit tests. Edit ruby_bbcode_test.rb to add tests.
+
 ## Acknowledgements
 
 Code is based on BBcode to HTML gem by Maarten Bezemer: http://github.com/veger/ruby-bbcode.git 
