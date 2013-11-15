@@ -57,8 +57,8 @@ class RubyBbcodeTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_equal "\n>quoting\n",  '[quote]quoting[/quote]'.bbcode_to_md
-    assert_equal "\n>someone said:\n>quoting\n", '[quote=someone]quoting[/quote]'.bbcode_to_md
+    assert_equal "\n>quoting\n\n",  '[quote]quoting[/quote]'.bbcode_to_md
+    assert_equal "\n>someone said:\n>quoting\n\n", '[quote=someone]quoting[/quote]'.bbcode_to_md
   end
 
   def test_nested_quotes
@@ -144,7 +144,7 @@ class RubyBbcodeTest < Test::Unit::TestCase
   end
 
   def test_multiple_tag_test
-    assert_equal "**bold***italic*underline\n>quote\nhttps://test.com",
+    assert_equal "**bold***italic*underline\n>quote\n\nhttps://test.com",
                    "[b]bold[/b][i]italic[/i][u]underline[/u][quote]quote[/quote][url=https://test.com]link[/url]".bbcode_to_md
   end
 
