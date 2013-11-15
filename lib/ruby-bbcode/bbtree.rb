@@ -10,6 +10,7 @@ module RubyBBCode
   # The closing of the nodes seems to be implied which is fine by me --less to keep track of.  
   # 
   class BBTree
+    include ::RubyBBCode::DebugBBTree
     attr_accessor :current_node, :tags_list
     
     def initialize(hash = { :nodes => TagCollection.new }, dictionary)
@@ -66,7 +67,7 @@ module RubyBBCode
         # Set the current node to be the node we've just parsed over which is infact within another node??...
         @current_node = TagNode.new(self.nodes.last)
       else # If we're still at the root of the BBTree or have returned back to the root via encountring closing tags...
-        @current_node = TagNode.new({:nodes => self.nodes})  # Note:  just passing in self works too...
+        @current_node = TagNode.new({:nodes => self.nodes}) 
       end
       
       # OKOKOK!  

@@ -60,7 +60,8 @@ module RubyBBCode
         :tag_param => /^((((http|https|ftp):\/\/)|\/).+)$/, :tag_param_tokens => [{ :token => :url }],
         :tag_param_description => 'The URL should start with http:// https://, ftp:// or /, instead of \'%param%\'' },
       :quote => {
-        :html_open => "\n%author%>", :html_close => "",
+        :first_html_open => "\n", :last_html_close => "\n",
+        :html_open => "%author%>", :html_close => "",
         :description => 'Quote another person',
         :example => '[quote]BBCode is great[/quote]',
         :allow_tag_param => true, :allow_tag_param_between => false,

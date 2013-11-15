@@ -49,16 +49,28 @@ module RubyBBCode
         @node = node
         @tag_definition = node.definition # tag_definition
 
+        @opening_html = ""
+        @closing_html = ""
+
+        # if this is a nested tag, then don't prefix first_html_open
+        if !node.definition[:first_html_open].nil? && node.type != node.parent_type then
+          @opening_html << node.definition[:first_html_open]
+        end
+
         if node.definition[:html_open].is_a?(Hash) then
-          @opening_html = node.definition[:html_open][node.parent_type].dup
+          @opening_html << node.definition[:html_open][node.parent_type].dup
         else
-          @opening_html = node.definition[:html_open].dup
+          @opening_html << node.definition[:html_open].dup
         end
 
         if node.definition[:html_close].is_a?(Hash) then
-          @closing_html = node.definition[:html_close][node.parent_type].dup
+          @closing_html << node.definition[:html_close][node.parent_type].dup
         else
-          @closing_html = node.definition[:html_close].dup
+          @closing_html << node.definition[:html_close].dup
+        end
+
+        if !node.definition[:last_html_close].nil? && node.type != node.parent_type then
+          @closing_html << node.definition[:last_html_close]
         end
       end
       

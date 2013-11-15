@@ -4,6 +4,7 @@ module RubyBBCode
   # TagNodes specify either opening tag elements or text elements...  TagInfo elements are essentially converted into these nodes which are
   # later converted into html output in the bbtree_to_html method
   class TagNode
+    include ::RubyBBCode::DebugBBTree
     attr_accessor :element
     
     def initialize(element, nodes = [])
