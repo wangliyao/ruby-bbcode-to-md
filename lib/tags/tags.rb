@@ -5,42 +5,42 @@ module RubyBBCode
     # A single item from this file (eg the :b entry) is refered to as a @definition
     @@tags = {
       :b => {
-        :html_open => '<strong>', :html_close => '</strong>',
+        :html_open => '**', :html_close => '**',
         :description => 'Make text bold',
         :example => 'This is [b]bold[/b].'},
       :i => {
-        :html_open => '<em>', :html_close => '</em>',
+        :html_open => '*', :html_close => '*',
         :description => 'Make text italic',
         :example => 'This is [i]italic[/i].'},
       :u => {
-        :html_open => '<u>', :html_close => '</u>',
+        :html_open => '', :html_close => '',
         :description => 'Underline text',
         :example => 'This is [u]underlined[/u].'},
-      :s => {
-        :html_open => '<span style="text-decoration:line-through;">', :html_close => '</span>',
-        :description => 'Strike-through text',
-        :example => 'This is [s]wrong[/s] good.'},
       :center => {
-        :html_open => '<div style="text-align:center;">', :html_close => '</div>',
+        :html_open => '', :html_close => '',
         :description => 'Center a text',
         :example => '[center]This is centered[/center].'},
       :ul => {
-        :html_open => '<ul>', :html_close => '</ul>',
+        :html_open => '', :html_close => "\n",
         :description => 'Unordered list',
         :example => '[ul][li]List item[/li][li]Another list item[/li][/ul].',
         :only_allow => [ :li ]},
       :ol => {
-        :html_open => '<ol>', :html_close => '</ol>',
+        :html_open => '', :html_close => "\n",
         :description => 'Ordered list',
         :example => '[ol][li]List item[/li][li]Another list item[/li][/ol].',
         :only_allow => [ :li ]},
       :li => {
-        :html_open => '<li>', :html_close => '</li>',
+        :html_open => {
+          :ul => '  - ',
+          :ol => '  1. '
+        },
+        :html_close => "\n",
         :description => 'List item',
         :example => '[ul][li]List item[/li][li]Another list item[/li][/ul].',
         :only_in => [ :ul, :ol ]},
       :img => {
-        :html_open => '<img src="%between%" %width%%height%alt="" />', :html_close => '',
+        :html_open => '%between%', :html_close => '',
         :description => 'Image',
         :example => '[img]http://www.google.com/intl/en_ALL/images/logo.gif[/img].',
         :only_allow => [],
@@ -51,7 +51,7 @@ module RubyBBCode
                               { :token => :height,  :prefix => 'height="', :postfix => '" ' } ],
         :tag_param_description => 'The image parameters \'%param%\' are incorrect, <width>x<height> excepted'},
       :url => {
-        :html_open => '<a href="%url%">%between%', :html_close => '</a>',
+        :html_open => '%url%', :html_close => '',
         :description => 'Link to another page',
         :example => '[url]http://www.google.com/[/url].',
         :only_allow => [],
@@ -60,28 +60,28 @@ module RubyBBCode
         :tag_param => /^((((http|https|ftp):\/\/)|\/).+)$/, :tag_param_tokens => [{ :token => :url }],
         :tag_param_description => 'The URL should start with http:// https://, ftp:// or /, instead of \'%param%\'' },
       :quote => {
-        :html_open => '<div class="quote">%author%', :html_close => '</div>',
+        :html_open => "\n%author%>", :html_close => "",
         :description => 'Quote another person',
         :example => '[quote]BBCode is great[/quote]',
         :allow_tag_param => true, :allow_tag_param_between => false,
         :tag_param => /(.*)/,
-        :tag_param_tokens => [{:token => :author, :prefix => '<strong>', :postfix => ' wrote:</strong>'}]},
+        :tag_param_tokens => [{:token => :author, :prefix => '>', :postfix => " said:\n"}]},
       :size => {
-        :html_open => '<span style="font-size: %size%px;">', :html_close => '</span>',
+        :html_open => '[size=%size%]', :html_close => '[/size]',
         :description => 'Change the size of the text',
         :example => '[size=32]This is 32px[/size]',
         :allow_tag_param => true, :allow_tag_param_between => false,
         :tag_param => /(\d*)/,
         :tag_param_tokens => [{:token => :size}]},
       :color => {
-        :html_open => '<span style="color: %color%;">', :html_close => '</span>',
+        :html_open => '', :html_close => '',
         :description => 'Change the color of the text',
         :example => '[color=red]This is red[/color]',
         :allow_tag_param => true, :allow_tag_param_between => false,
         :tag_param => /(([a-z]+)|(#[0-9a-f]{6}))/i,
         :tag_param_tokens => [{:token => :color}]},
       :youtube => {
-        :html_open => '<object width="400" height="325"><param name="movie" value="http://www.youtube.com/v/%between%"></param><embed src="http://www.youtube.com/v/%between%" type="application/x-shockwave-flash" width="400" height="325"></embed></object>', :html_close => '',
+        :html_open => 'http://www.youtube.com/v/%between%', :html_close => '',
         :description => 'Youtube video',
         :example => '[youtube]E4Fbk52Mk1w[/youtube]',
         :only_allow => [],
@@ -89,7 +89,7 @@ module RubyBBCode
         :url_matches => [/youtube\.com.*[v]=([^&]*)/, /youtu\.be\/([^&]*)/, /y2u\.be\/([^&]*)/],
         :require_between => true},
       :vimeo => {
-        :html_open => '<iframe src="http://player.vimeo.com/video/%between%?badge=0" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>', 
+        :html_open => 'http://vimeo.com/%between%', 
         :html_close => '',
         :description => 'Vimeo video',
         :example => '[vimeo]http://vimeo.com/46141955[/vimeo]',

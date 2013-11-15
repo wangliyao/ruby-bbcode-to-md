@@ -41,7 +41,7 @@ module RubyBBCode
       text = @tag_data[:text]
       # convert_newlines_to_br  
       text.gsub!("\r\n", "\n")
-      text.gsub!("\n", "<br />\n")
+      text.gsub!("\n", "\n")
       text
     end
     

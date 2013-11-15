@@ -77,12 +77,12 @@ end
 
 String.class_eval do
   # Convert a string with BBCode markup into its corresponding HTML markup
-  def bbcode_to_html(escape_html = true, additional_tags = {}, method = :disable, *tags)
+  def bbcode_to_md(escape_html = true, additional_tags = {}, method = :disable, *tags)
     RubyBBCode.to_html(self, escape_html, additional_tags, method, *tags)
   end
 
   # Replace the BBCode content of a string with its corresponding HTML markup
-  def bbcode_to_html!(escape_html = true, additional_tags = {}, method = :disable, *tags)
+  def bbcode_to_md!(escape_html = true, additional_tags = {}, method = :disable, *tags)
     self.replace(RubyBBCode.to_html(self, escape_html, additional_tags, method, *tags))
   end
 

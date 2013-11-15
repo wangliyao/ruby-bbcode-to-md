@@ -52,6 +52,7 @@ module RubyBBCode
     
     # Advance to next level (the node we just added)
     def escalate_bbtree(element)
+      element[:parent_tag] = parent_tag
       @tags_list.push element[:tag]
       @current_node = TagNode.new(element)
     end

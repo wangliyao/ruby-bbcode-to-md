@@ -23,6 +23,10 @@ module RubyBBCode
       return :tag if @element[:is_tag]
       return :text if !@element[:is_tag]
     end
+
+    def parent_type
+      @element[:parent_tag]
+    end
     
     # Checks to see if the parameter for the TagNode has been set.  
     def param_not_set?
