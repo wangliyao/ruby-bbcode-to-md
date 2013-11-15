@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "ruby-bbcode-to-md-#{s.version}"
   s.description = "Convert BBCode to Markdown and check whether the BBCode is valid."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.textile"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
   
   s.add_dependency 'activesupport'
