@@ -171,7 +171,7 @@ class RubyBbcodeTest < Test::Unit::TestCase
     num = 2300  # increase this number if the test starts failing.  It's very near the tipping point
     openers = "[s]hi i'm" * num
     closers = "[/s]" * num
-    assert_raise( SystemStackError ) do
+    assert_raise( RuntimeError ) do
       (openers+closers).bbcode_to_md
     end
     
