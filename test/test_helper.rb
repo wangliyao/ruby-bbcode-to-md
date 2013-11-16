@@ -1,4 +1,4 @@
-require 'ruby-bbcode'
+require 'ruby-bbcode-to-md'
 require "test/unit"
 
 # This hack allows us to make all the private methods of a class public.  
