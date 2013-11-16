@@ -12,6 +12,18 @@ require 'ruby-bbcode-to-md/bbtree'
 module RubyBBCode
   include ::RubyBBCode::Tags
 
+  def self.disable_validation
+    @ignore_validation = true
+  end
+
+  def self.enable_validation
+    @ignore_validation = false
+  end
+
+  def self.validation_enabled
+    !@ignore_validation.nil? and !@ignore_validation
+  end
+
   # This method converts the given text (with BBCode tags) into a HTML representation
   # The escape_html parameter (default: true) escapes HTML tags that were present in the given text and therefore blocking (mallicious) HTML in the original text
   # The additional_tags parameter is used to add additional BBCode tags that should be accepted
@@ -95,6 +107,6 @@ String.class_eval do
 
   # Check if string contains valid BBCode. Returns true when valid, else returns array with error(s)
   def check_bbcode_validity
-    RubyBBCode.validity_check(self)
+    RubyBBCode.validity_check(self) and !@ignore_validation
   end
 end

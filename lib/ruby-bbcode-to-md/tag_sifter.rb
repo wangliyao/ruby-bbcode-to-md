@@ -146,7 +146,7 @@ module RubyBBCode
     end
     
     def valid_text_or_opening_element?
-      if @ti.element_is_text? or @ti.element_is_opening_tag?
+      if RubyBBCode.validation_enabled and @ti.element_is_text? or @ti.element_is_opening_tag?
         return false if validate_opening_tag == false
         return false if validate_constraints_on_child == false
       end
@@ -155,7 +155,7 @@ module RubyBBCode
     
     def validate_opening_tag
       # TODO:  rename this if statement to #validate_opening_tag
-      if @ti.element_is_opening_tag?
+      if RubyBBCode.validation_enabled and @ti.element_is_opening_tag?
         unless @ti.allowed_outside_parent_tags? or (within_open_tag? and @ti.allowed_in(parent_tag.to_sym))
           # Tag doesn't belong in the last opened tag
           throw_child_requires_specific_parent_error; return false
@@ -174,7 +174,7 @@ module RubyBBCode
     
     def validate_constraints_on_child
       # TODO:  Rename this if statement to #validate_constraints_on_child
-      if within_open_tag? and parent_has_constraints_on_children?
+      if RubyBBCode.validation_enabled and within_open_tag? and parent_has_constraints_on_children?
         # Check if the found tag is allowed
         last_tag = @dictionary[parent_tag]
         allowed_tags = last_tag[:only_allow]
@@ -189,7 +189,7 @@ module RubyBBCode
     def valid_closing_element?
       tag = @ti.definition
       
-      if @ti.element_is_closing_tag?
+      if RubyBBCode.validation_enabled and @ti.element_is_closing_tag?
         if parent_tag != @ti[:tag].to_sym
           @errors = ["Closing tag [/#{@ti[:tag]}] does match [#{parent_tag}]"] 
           return false
@@ -211,7 +211,7 @@ module RubyBBCode
       tag = @bbtree.current_node.definition
       
       # this conditional ensures whether the validation is apropriate to this tag type
-      if @ti.element_is_text? and within_open_tag? and tag[:require_between] and candidate_for_using_between_as_param?
+      if RubyBBCode.validation_enabled and @ti.element_is_text? and within_open_tag? and tag[:require_between] and candidate_for_using_between_as_param?
       
         # check if valid
         if @ti[:text].match(tag[:tag_param]).nil?
@@ -224,7 +224,7 @@ module RubyBBCode
     
     def validate_all_tags_closed_off
       # if we're still expecting a closing tag and we've come to the end of the string... throw error
-      throw_unexpected_end_of_string_error if expecting_a_closing_tag?
+      throw_unexpected_end_of_string_error if expecting_a_closing_tag? and RubyBBCode.validation_enabled
     end
     
     def validate_stack_level_too_deep_potential
