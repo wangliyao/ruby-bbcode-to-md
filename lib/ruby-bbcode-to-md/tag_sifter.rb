@@ -33,7 +33,7 @@ module RubyBBCode
           element = {:is_tag => true, :tag => @ti[:tag].to_sym, :definition => @ti.definition, :nodes => TagCollection.new }
           element[:params] = {:tag_param => get_formatted_element_params} if @ti.can_have_params? and @ti.has_params?
           @bbtree.build_up_new_tag(element)
-          
+
           @bbtree.escalate_bbtree(element)
         when :text
           set_parent_tag_from_multi_tag_to_concrete! if @bbtree.current_node.definition && @bbtree.current_node.definition[:multi_tag] == true

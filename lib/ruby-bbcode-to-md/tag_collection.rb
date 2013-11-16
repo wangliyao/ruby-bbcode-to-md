@@ -52,6 +52,7 @@ module RubyBBCode
         @opening_html = ""
         @closing_html = ""
 
+        # this bit doesn't really work because parent_type isn't set correctly.
         # if this is a nested tag, then don't prefix first_html_open
         if !node.definition[:first_html_open].nil? && node.type != node.parent_type then
           @opening_html << node.definition[:first_html_open]
