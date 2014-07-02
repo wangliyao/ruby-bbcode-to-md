@@ -61,12 +61,12 @@ module RubyBBCode
         :tag_param_description => 'The URL should start with http:// https://, ftp:// or /, instead of \'%param%\'' },
       :quote => {
         :first_html_open => "\n", :last_html_close => "\n",
-        :html_open => "*--- Begin quote from __%author%__*\n\n", :html_close => "\n\n*--- End quote*\n\n",
+        :html_open => "[quote%author%]", :html_close => "[/quote]\n",
         :description => 'Quote another person',
         :example => '[quote]BBCode is great[/quote]',
         :allow_tag_param => true, :allow_tag_param_between => false,
         :tag_param => /(.*)/,
-        :tag_param_tokens => [{:token => :author, :prefix => '', :postfix => ""}]},
+        :tag_param_tokens => [{:token => :author, :prefix => '=', :postfix => ""}]},
       :size => {
         :html_open => '[size=%size%]', :html_close => '[/size]',
         :description => 'Change the size of the text',
@@ -82,7 +82,7 @@ module RubyBBCode
         :tag_param => /(([a-z]+)|(#[0-9a-f]{6}))/i,
         :tag_param_tokens => [{:token => :color}]},
       :youtube => {
-        :html_open => 'http://www.youtube.com/v/%between%', :html_close => '',
+        :html_open => 'http://www.youtube.com/watch?v=%between%', :html_close => '',
         :description => 'Youtube video',
         :example => '[youtube]E4Fbk52Mk1w[/youtube]',
         :only_allow => [],
