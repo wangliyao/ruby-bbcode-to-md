@@ -21,12 +21,12 @@ module RubyBBCode
         :description => 'Center a text',
         :example => '[center]This is centered[/center].'},
       :ul => {
-        :html_open => '', :html_close => "\n",
+        :html_open => "\n", :html_close => "\n",
         :description => 'Unordered list',
         :example => '[ul][li]List item[/li][li]Another list item[/li][/ul].',
         :only_allow => [ :li ]},
       :ol => {
-        :html_open => '', :html_close => "\n",
+        :html_open => "\n", :html_close => "\n",
         :description => 'Ordered list',
         :example => '[ol][li]List item[/li][li]Another list item[/li][/ol].',
         :only_allow => [ :li ]},
