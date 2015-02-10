@@ -91,7 +91,7 @@ module RubyBBCode
         :url_matches => [/youtube\.com.*[v]=([^&]*)/, /youtu\.be\/([^&]*)/, /y2u\.be\/([^&]*)/],
         :require_between => true},
       :vimeo => {
-        :html_open => 'http://vimeo.com/%between%', 
+        :html_open => 'http://vimeo.com/%between%',
         :html_close => '',
         :description => 'Vimeo video',
         :example => '[vimeo]http://vimeo.com/46141955[/vimeo]',
