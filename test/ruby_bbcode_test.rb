@@ -191,6 +191,12 @@ class RubyBbcodeTest < Test::Unit::TestCase
     assert_equal input1, input1.bbcode_to_md
   end
 
+  def test_nested_inside_url_tag
+    assert_equal "[**Google**](http://google.com)", "[url=http://google.com][b]Google[/b][/url]".bbcode_to_md
+    assert_equal "[Go to **Google**](http://google.com)", "[url=http://google.com]Go to [b]Google[/b][/url]".bbcode_to_md
+    assert_equal "[**Google**](http://google.com)", "[url=http://google.com][color=#008000][b]Google[/b][/color][/url]".bbcode_to_md
+  end
+
 
 
 end
