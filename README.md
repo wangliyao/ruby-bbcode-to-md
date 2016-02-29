@@ -5,7 +5,7 @@ The parser recognizes most "official tags":http://www.bbcode.org/reference.php a
 
 ## Example
 ```ruby
-"This is [b]bold[/b] and this is [i]italic[/i].".bbcode_to_html
+"This is [b]bold[/b] and this is [i]italic[/i].".bbcode_to_md
 ```
 =>
 ```markdown
