@@ -80,17 +80,17 @@ class RubyBbcodeTest < MiniTest::Unit::TestCase
   end
 
   def test_youtube
-    assert_equal 'http://www.youtube.com/watch?v=E4Fbk52Mk1w', '[youtube]E4Fbk52Mk1w[/youtube]'.bbcode_to_md
+    assert_equal 'https://www.youtube.com/watch?v=E4Fbk52Mk1w', '[youtube]E4Fbk52Mk1w[/youtube]'.bbcode_to_md
   end
 
   def test_youtube_with_full_url
     full_url = "http://www.youtube.com/watch?feature=player_embedded&v=E4Fbk52Mk1w"
-    assert_equal "http://www.youtube.com/watch?v=E4Fbk52Mk1w", "[youtube]#{full_url}[/youtube]".bbcode_to_md
+    assert_equal "https://www.youtube.com/watch?v=E4Fbk52Mk1w", "[youtube]#{full_url}[/youtube]".bbcode_to_md
   end
 
   def test_youtube_with_url_shortener
     full_url = "http://www.youtu.be/cSohjlYQI2A"
-    assert_equal "http://www.youtube.com/watch?v=cSohjlYQI2A", "[youtube]#{full_url}[/youtube]".bbcode_to_md
+    assert_equal "https://www.youtube.com/watch?v=cSohjlYQI2A", "[youtube]#{full_url}[/youtube]".bbcode_to_md
   end
 
 
@@ -159,17 +159,17 @@ class RubyBbcodeTest < MiniTest::Unit::TestCase
     num = 2300  # increase this number if the test starts failing.  It's very near the tipping point
     openers = "[s]hi i'm" * num
     closers = "[/s]" * num
-    assert_raise( RuntimeError ) do
+    assert_raises( RuntimeError ) do
       (openers+closers).bbcode_to_md
     end
 
   end
 
   def test_mulit_tag
-    input1 = "[media]http://www.youtube.com/watch?v=cSohjlYQI2A[/media]"
+    input1 = "[media]https://www.youtube.com/watch?v=cSohjlYQI2A[/media]"
     input2 = "[media]http://vimeo.com/46141955[/media]"
 
-    output1 = "http://www.youtube.com/watch?v=cSohjlYQI2A"
+    output1 = "https://www.youtube.com/watch?v=cSohjlYQI2A"
     output2 = "http://vimeo.com/46141955"
 
     assert_equal output1, input1.bbcode_to_md
@@ -196,7 +196,5 @@ class RubyBbcodeTest < MiniTest::Unit::TestCase
     assert_equal "[Go to **Google**](http://google.com)", "[url=http://google.com]Go to [b]Google[/b][/url]".bbcode_to_md
     assert_equal "[**Google**](http://google.com)", "[url=http://google.com][color=#008000][b]Google[/b][/color][/url]".bbcode_to_md
   end
-
-
 
 end
