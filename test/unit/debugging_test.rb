@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RubyBbcodeTest < Test::Unit::TestCase
+class RubyBbcodeTest < MiniTest::Unit::TestCase
   include ::RubyBBCode::Tags
   
   def test_bbtree_to_v

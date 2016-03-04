@@ -1,6 +1,6 @@
-require 'test_helper'
+require_relative 'test_helper'
 
-class RubyBbcodeTest < Test::Unit::TestCase
+class RubyBbcodeTest < MiniTest::Unit::TestCase
 
   def test_multiline
     assert_equal "line1\nline2", "line1\nline2".bbcode_to_md
