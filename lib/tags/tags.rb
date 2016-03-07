@@ -83,7 +83,7 @@ module RubyBBCode
         :tag_param => /(([a-z]+)|(#[0-9a-f]{6}))/i,
         :tag_param_tokens => [{:token => :color}]},
       :youtube => {
-        :html_open => 'http://www.youtube.com/watch?v=%between%', :html_close => '',
+        :html_open => 'https://www.youtube.com/watch?v=%between%', :html_close => '',
         :description => 'Youtube video',
         :example => '[youtube]E4Fbk52Mk1w[/youtube]',
         :only_allow => [],
