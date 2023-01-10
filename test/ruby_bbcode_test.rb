@@ -1,6 +1,6 @@
-require 'test_helper'
+require_relative 'test_helper'
 
-class RubyBbcodeTest < Test::Unit::TestCase
+class RubyBbcodeTest < MiniTest::Unit::TestCase
 
   def test_multiline
     assert_equal "line1\nline2", "line1\nline2".bbcode_to_md
@@ -36,42 +36,39 @@ class RubyBbcodeTest < Test::Unit::TestCase
   end
 
   def test_ordered_list
-    assert_equal "  1. item 1\n  1. item 2\n\n", '[ol][li]item 1[/li][li]item 2[/li][/ol]'.bbcode_to_md
+    assert_equal "\n  1. item 1\n  1. item 2\n\n", '[ol][li]item 1[/li][li]item 2[/li][/ol]'.bbcode_to_md
   end
 
   def test_unordered_list
-    assert_equal "  - item 1\n  - item 2\n\n", '[ul][li]item 1[/li][li]item 2[/li][/ul]'.bbcode_to_md
+    assert_equal "\n  - item 1\n  - item 2\n\n", '[ul][li]item 1[/li][li]item 2[/li][/ul]'.bbcode_to_md
   end
 
   def test_two_lists
-    assert_equal "  - item1\n  - item2\n\n  - item1\n  - item2\n\n",
+    assert_equal "\n  - item1\n  - item2\n\n\n  - item1\n  - item2\n\n",
                    "[ul][li]item1[/li][li]item2[/li][/ul][ul][li]item1[/li][li]item2[/li][/ul]".bbcode_to_md
   end
 
   def test_whitespace_in_only_allowed_tags
-    assert_equal "\n  1. item 1\n\n  1. item 2\n\n\n",
-                   "[ol]\n[li]item 1[/li]\n[li]item 2[/li]\n[/ol]".bbcode_to_md
-    assert_equal "   1. item 1\n    1. item 2\n\n",
-               "[ol] [li]item 1[/li]  [li]item 2[/li][/ol]".bbcode_to_md
+    assert_equal "\n\n  1. item 1\n\n  1. item 2\n\n\n", "[ol]\n[li]item 1[/li]\n[li]item 2[/li]\n[/ol]".bbcode_to_md
+    assert_equal "\n   1. item 1\n    1. item 2\n\n", "[ol] [li]item 1[/li]  [li]item 2[/li][/ol]".bbcode_to_md
 
   end
 
   def test_quote
-    assert_equal "\n>quoting\n\n",  '[quote]quoting[/quote]'.bbcode_to_md
-    assert_equal "\n>someone said:\n>quoting\n\n", '[quote=someone]quoting[/quote]'.bbcode_to_md
+    assert_equal "\n[quote]quoting[/quote]\n\n",  '[quote]quoting[/quote]'.bbcode_to_md
+    assert_equal "\n[quote=someone]quoting[/quote]\n\n", '[quote=someone]quoting[/quote]'.bbcode_to_md
   end
 
   def test_nested_quotes
-    assert_equal "\n>Kitten said:\n>>creatiu said:\n>>f1\n>f2",
+    assert_equal "\n[quote=Kitten]\n[quote=creatiu]f1[/quote]\n\nf2[/quote]\n\n",
                   '[quote=Kitten][quote=creatiu]f1[/quote]f2[/quote]'.bbcode_to_md
   end
 
-  # TODO convert URLs with link text instead of just extracting the url.
   def test_link
-    assert_equal 'http://www.google.com', '[url]http://www.google.com[/url]'.bbcode_to_md
-    assert_equal 'http://google.com', '[url=http://google.com]Google[/url]'.bbcode_to_md
-    assert_equal '/index.html', '[url=/index.html]Home[/url]'.bbcode_to_md
-    assert_equal "http://google.com and http://bing.com are both search engines.",
+    assert_equal '[http://www.google.com](http://www.google.com)', '[url]http://www.google.com[/url]'.bbcode_to_md
+    assert_equal '[Google](http://google.com)', '[url=http://google.com]Google[/url]'.bbcode_to_md
+    assert_equal '[Home](/index.html)', '[url=/index.html]Home[/url]'.bbcode_to_md
+    assert_equal "[Google](http://google.com) and [Bing](http://bing.com) are both search engines.",
                   '[url=http://google.com]Google[/url] and [url=http://bing.com]Bing[/url] are both search engines.'.bbcode_to_md
   end
 
@@ -83,20 +80,17 @@ class RubyBbcodeTest < Test::Unit::TestCase
   end
 
   def test_youtube
-    assert_equal 'http://www.youtube.com/v/E4Fbk52Mk1w' ,
-                   '[youtube]E4Fbk52Mk1w[/youtube]'.bbcode_to_md
+    assert_equal 'https://www.youtube.com/watch?v=E4Fbk52Mk1w', '[youtube]E4Fbk52Mk1w[/youtube]'.bbcode_to_md
   end
 
   def test_youtube_with_full_url
     full_url = "http://www.youtube.com/watch?feature=player_embedded&v=E4Fbk52Mk1w"
-    assert_equal "http://www.youtube.com/v/E4Fbk52Mk1w" ,
-                   "[youtube]#{full_url}[/youtube]".bbcode_to_md
+    assert_equal "https://www.youtube.com/watch?v=E4Fbk52Mk1w", "[youtube]#{full_url}[/youtube]".bbcode_to_md
   end
-  
+
   def test_youtube_with_url_shortener
     full_url = "http://www.youtu.be/cSohjlYQI2A"
-    assert_equal "http://www.youtube.com/v/cSohjlYQI2A" ,
-                   "[youtube]#{full_url}[/youtube]".bbcode_to_md
+    assert_equal "https://www.youtube.com/watch?v=cSohjlYQI2A", "[youtube]#{full_url}[/youtube]".bbcode_to_md
   end
 
 
@@ -144,65 +138,63 @@ class RubyBbcodeTest < Test::Unit::TestCase
   end
 
   def test_multiple_tag_test
-    assert_equal "**bold***italic*underline\n>quote\n\nhttps://test.com",
+    assert_equal "**bold***italic*underline\n[quote]quote[/quote]\n\n[link](https://test.com)",
                    "[b]bold[/b][i]italic[/i][u]underline[/u][quote]quote[/quote][url=https://test.com]link[/url]".bbcode_to_md
   end
 
   def test_no_ending_tag
-    assert_raise RuntimeError do
-      "this [b]should not be bold".bbcode_to_md
-    end
+    assert_equal "this **should be handled**", "this [b]should be handled".bbcode_to_md
   end
 
   def test_no_start_tag
-    assert_raise RuntimeError do
-      "this should not be bold[/b]".bbcode_to_md
-    end
+    assert_equal "this should not be bold", "this should not be bold[/b]".bbcode_to_md
   end
 
   def test_different_start_and_ending_tags
-    assert_raise RuntimeError do
-      "this [b]should not do formatting[/i]".bbcode_to_md
-    end
+    assert_equal "this **should be tolerated**", "this [b]should be tolerated[/i]".bbcode_to_md
   end
-    
+
     # TODO:  This stack level problem should be validated during the validations
   def test_stack_level_too_deep
     num = 2300  # increase this number if the test starts failing.  It's very near the tipping point
     openers = "[s]hi i'm" * num
     closers = "[/s]" * num
-    assert_raise( RuntimeError ) do
+    assert_raises( RuntimeError ) do
       (openers+closers).bbcode_to_md
     end
-    
+
   end
-  
+
   def test_mulit_tag
-    input1 = "[media]http://www.youtube.com/watch?v=cSohjlYQI2A[/media]"
+    input1 = "[media]https://www.youtube.com/watch?v=cSohjlYQI2A[/media]"
     input2 = "[media]http://vimeo.com/46141955[/media]"
-    
-    output1 = "http://www.youtube.com/v/cSohjlYQI2A"
-    output2 = "http://vimeo.com/46141955"    
-    
+
+    output1 = "https://www.youtube.com/watch?v=cSohjlYQI2A"
+    output2 = "http://vimeo.com/46141955"
+
     assert_equal output1, input1.bbcode_to_md
     assert_equal output2, input2.bbcode_to_md
   end
-  
+
   def test_vimeo_tag
     input = "[vimeo]http://vimeo.com/46141955[/vimeo]"
     input2 = "[vimeo]46141955[/vimeo]"
     output = 'http://vimeo.com/46141955'
-    
+
     assert_equal output, input.bbcode_to_md
     assert_equal output, input2.bbcode_to_md
   end
-  
+
   def test_failing_multi_tag
     input1 = "[media]http://www.youtoob.com/watch?v=cSohjlYQI2A[/media]"
-    
+
     assert_equal input1, input1.bbcode_to_md
   end
-  
-  
+
+  def test_nested_inside_url_tag
+    assert_equal "[**Google**](http://google.com)", "[url=http://google.com][b]Google[/b][/url]".bbcode_to_md
+    assert_equal "[Go to **Google**](http://google.com)", "[url=http://google.com]Go to [b]Google[/b][/url]".bbcode_to_md
+    assert_equal "[**Google**](http://google.com)", "[url=http://google.com][color=#008000][b]Google[/b][/color][/url]".bbcode_to_md
+  end
 
 end

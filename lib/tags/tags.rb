@@ -21,12 +21,12 @@ module RubyBBCode
         :description => 'Center a text',
         :example => '[center]This is centered[/center].'},
       :ul => {
-        :html_open => '', :html_close => "\n",
+        :html_open => "\n", :html_close => "\n",
         :description => 'Unordered list',
         :example => '[ul][li]List item[/li][li]Another list item[/li][/ul].',
         :only_allow => [ :li ]},
       :ol => {
-        :html_open => '', :html_close => "\n",
+        :html_open => "\n", :html_close => "\n",
         :description => 'Ordered list',
         :example => '[ol][li]List item[/li][li]Another list item[/li][/ol].',
         :only_allow => [ :li ]},
@@ -51,14 +51,15 @@ module RubyBBCode
                               { :token => :height,  :prefix => 'height="', :postfix => '" ' } ],
         :tag_param_description => 'The image parameters \'%param%\' are incorrect, <width>x<height> excepted'},
       :url => {
-        :html_open => '%url%', :html_close => '',
+        :html_open => '[%between%](%href%)', :html_close => '',
         :description => 'Link to another page',
-        :example => '[url]http://www.google.com/[/url].',
+        :example => '[url=http://www.google.com/]Google[/url].',
         :only_allow => [],
         :require_between => true,
-        :allow_tag_param => true, :allow_tag_param_between => true,
-        :tag_param => /^((((http|https|ftp|irc):\/\/)|\/).+)$/, :tag_param_tokens => [{ :token => :url }],
-        :tag_param_description => 'The URL should start with http:// https://, ftp:// or /, instead of \'%param%\'' },
+        :allow_tag_param => true,
+        :allow_tag_param_between => true,
+        :tag_param => /(.*)/,
+        :tag_param_tokens => [{:token => :href}]},
       :quote => {
         :first_html_open => "\n", :last_html_close => "\n",
         :html_open => "[quote%author%]", :html_close => "[/quote]\n",
@@ -82,7 +83,7 @@ module RubyBBCode
         :tag_param => /(([a-z]+)|(#[0-9a-f]{6}))/i,
         :tag_param_tokens => [{:token => :color}]},
       :youtube => {
-        :html_open => 'http://www.youtube.com/watch?v=%between%', :html_close => '',
+        :html_open => 'https://www.youtube.com/watch?v=%between%', :html_close => '',
         :description => 'Youtube video',
         :example => '[youtube]E4Fbk52Mk1w[/youtube]',
         :only_allow => [],
@@ -90,7 +91,7 @@ module RubyBBCode
         :url_matches => [/youtube\.com.*[v]=([^&]*)/, /youtu\.be\/([^&]*)/, /y2u\.be\/([^&]*)/],
         :require_between => true},
       :vimeo => {
-        :html_open => 'http://vimeo.com/%between%', 
+        :html_open => 'http://vimeo.com/%between%',
         :html_close => '',
         :description => 'Vimeo video',
         :example => '[vimeo]http://vimeo.com/46141955[/vimeo]',
