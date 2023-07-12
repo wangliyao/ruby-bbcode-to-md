@@ -85,7 +85,7 @@ module RubyBBCode
 
       def inlay_inline_params!
         # Get list of paramaters to feed
-        match_array = @node[:params][:tag_param].scan(@tag_definition[:tag_param])[0]
+        match_array = @node[:params][:tag_param].scan(@tag_definition[:tag_param])[0] || []
 
         # for each parameter to feed
         match_array.each.with_index do |match, i|
