@@ -82,7 +82,6 @@ module RubyBBCode
         :allow_tag_param => true, :allow_tag_param_between => false,
         :tag_param => /(.*)/,
         :tag_param_tokens => [{:token => :font}]},
-      }
       :color => {
         :html_open => '', :html_close => '',
         :description => 'Change the color of the text',
