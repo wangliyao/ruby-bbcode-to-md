@@ -105,6 +105,21 @@ module RubyBBCode
         :only_allow => [],
         :url_matches => [/vimeo\.com\/([^&]*)/],
         :require_between => true},
+      :table => {
+        :html_open => '|', :html_close => '</table>',
+        :description => 'Change the table of the text',
+        :example => '[table=98%]This is 32px[/table]',
+        :allow_tag_param => true, :allow_tag_param_between => false,
+        :tag_param => /(.*)/,
+        :tag_param_tokens => [{:token => :table}]},
+      :tr => {
+        :html_open => '<tr>', :html_close => '</tr>',
+        :description => 'Change in table tr',
+        :example => '[tr]This is 32px[/tr]'},
+      :td => {
+        :html_open => '<td>', :html_close => '</td>',
+        :description => 'Change in table td',
+        :example => '[td]This is 32px[/td]'},
       :media => {
         :multi_tag => true,
         :supported_tags => [
