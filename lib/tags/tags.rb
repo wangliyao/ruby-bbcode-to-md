@@ -106,7 +106,7 @@ module RubyBBCode
         :url_matches => [/vimeo\.com\/([^&]*)/],
         :require_between => true},
       :table => {
-        :html_open => '|', :html_close => '</table>',
+        :html_open => '<table>', :html_close => '</table>',
         :description => 'Change the table of the text',
         :example => '[table=98%]This is 32px[/table]',
         :allow_tag_param => true, :allow_tag_param_between => false,
