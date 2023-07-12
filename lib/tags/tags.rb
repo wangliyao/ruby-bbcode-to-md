@@ -51,7 +51,7 @@ module RubyBBCode
                               { :token => :height,  :prefix => 'height="', :postfix => '" ' } ],
         :tag_param_description => 'The image parameters \'%param%\' are incorrect, <width>x<height> excepted'},
       :url => {
-        :html_open => '[%between%](%href%)', :html_close => '',
+        :html_open => '<a href=%href%>%between%', :html_close => '</a>',
         :description => 'Link to another page',
         :example => '[url=http://www.google.com/]Google[/url].',
         :only_allow => [],
