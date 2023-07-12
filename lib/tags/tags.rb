@@ -76,7 +76,7 @@ module RubyBBCode
         :tag_param => /(\d*)/,
         :tag_param_tokens => [{:token => :size}]},
       :font => {
-        :html_open => '[font=%font%]', :html_close => '[/font]',
+        :html_open => '<font>', :html_close => '</font>',
         :description => 'Change the font of the text',
         :example => '[font=Tahoma, &quot]This is 32px[/font]',
         :allow_tag_param => true, :allow_tag_param_between => false,
